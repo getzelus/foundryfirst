@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.19;
+pragma solidity 0.8.19;
 
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/Interactions.s.sol";
@@ -9,7 +9,7 @@ import {HelperConfig} from "../../script/HelperConfig.s.sol";
 import {Test, console} from "forge-std/Test.sol";
 import {StdCheats} from "forge-std/StdCheats.sol";
 
-contract InteractionsTest is StdCheats, Test {
+contract IntegrationsTest is StdCheats, Test {
     FundMe public fundMe;
     HelperConfig public helperConfig;
 
@@ -29,15 +29,6 @@ contract InteractionsTest is StdCheats, Test {
         vm.deal(USER, STARTING_USER_BALANCE);
     }
 
-    function testUserCanFund() public {
-        FundFundMe fundFundMe = new FundFundMe();
-        fundFundMe.fundFundMe(address(fundMe));
-
-        WithdrawFundMe withdrawFundMe = new WithdrawFundMe();
-        withdrawFundMe.withdrawFundMe(address(fundMe));
-        assert(address(fundMe).balance == 0);
-    }
-/* 
     function testUserCanFundAndOwnerWithdraw() public {
         FundFundMe fundFundMe = new FundFundMe();
         fundFundMe.fundFundMe(address(fundMe));
@@ -46,5 +37,5 @@ contract InteractionsTest is StdCheats, Test {
         withdrawFundMe.withdrawFundMe(address(fundMe));
 
         assert(address(fundMe).balance == 0);
-    } */
+    }
 }
